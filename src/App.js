@@ -17,7 +17,6 @@ class App extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-	commandHistory:[],
 	terminalOutput: [],
 	value:'',
 	count: 1000,
@@ -27,8 +26,8 @@ class App extends React.Component {
   }
   
   renderTerminalOutput = () => {
-      return this.state.terminalOutput.map(t => (
-	    <Fontly count={this.state.count+"px"}>{t}</Fontly>
+      return this.state.terminalOutput.map((t,i) => (
+	      <Fontly count={this.state.count*(i+1)+"px"}>{t}</Fontly>
     )).reverse()
   }
   
@@ -39,12 +38,7 @@ class App extends React.Component {
   }
   keyPress(e){
     if(e.keyCode === 13){
-      console.log(e.target.value);
-      var newArray = this.state.commandHistory;
-      newArray.push(e.target.value);
-
       this.setState({
-          commandHistory:newArray,
           terminalOutput: [e.target.value, ...this.state.terminalOutput],
           value:'',
 	  count: this.state.count/2+1,
